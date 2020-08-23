@@ -20,6 +20,8 @@ debug_mode = off
 
 log_file_path = /tmp/logfile.log
 
+dog_file is httpp.comm13
+
 send_notifications = yes`;
 
 function Parser(string){
@@ -37,16 +39,16 @@ function Parser(string){
   }
   for (let i = 0; i <singleLines.length; i ++) {
     let line = singleLines[i];
-    if (line[0] === '#' || line[0] === ' ' || line[0] === undefined) {
+    let section = line.split('=');
+    if (line[0] === '#' || line[0] === ' ' || line[0] === undefined || section[1] === undefined) {
       continue;
     }
-    let section = line.split('=');
     let varName = section[0].trim();
     let val = section[1].trim();
     let testFloat = parseFloat(val);
     if (!(val.match(/[a-z]/i)) && !isNaN(testFloat)) {
       val = testFloat;
-  }
+    }
     if (truths[val]) {
       val = true;
     }
